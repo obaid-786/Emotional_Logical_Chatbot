@@ -1,0 +1,19 @@
+# Secrets — never commit these
+.env
+.env.*
+docker-compose.yml
+backend/app/test_gemini.py
+
+# Runtime data — regenerated on startup
+backend/data/chroma/
+backend/data/interactions.db
+backend/data/kb_seeded
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Node
+node_modules/
+frontend/dist/
