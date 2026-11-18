@@ -33,13 +33,19 @@ Cancellation: Subscriptions can be cancelled anytime from account settings."""
 
 @app.on_event("startup")
 async def seed_kb():
-    marker = Path("data/kb_seeded")
-    if not marker.exists():
+    """Seed FAQ only if the FAISS index doesn't already exist on disk."""
+    from pathlib import Path
+    from . import config
+    index_exists = Path(config.FAISS_INDEX_PATH).exists()
+    if not index_exists:
         try:
             await ingest("faq", FAQ)
-            marker.touch()
+            print("[startup] FAQ seeded into FAISS.", flush=True)
         except Exception as e:
-            print("KB seed skipped:", e)
+            print(f"[startup] FAQ seed failed: {e!r}", flush=True)
+    else:
+        print(f"[startup] FAISS index found at {config.FAISS_INDEX_PATH} — skipping seed.", flush=True)
+
 
 def sse(payload: dict) -> str:
     return f"data: {json.dumps(payload)}\n\n"
