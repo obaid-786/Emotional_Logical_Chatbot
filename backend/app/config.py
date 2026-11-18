@@ -9,7 +9,7 @@ LLM_MODEL    = os.getenv("LLM_MODEL",    "openai/gpt-oss-120b")
 LLM_API_KEY  = os.getenv("GROQ_API_KEY") or os.getenv("LLM_API_KEY", "")
 
 # --- Embeddings: local BGE-M3 (no API) ---
-EMBED_MODEL = os.getenv("EMBED_MODEL", "BAAI/bge-m3")
+EMBED_MODEL = os.getenv("EMBED_MODEL","sentence-transformers/all-MiniLM-L6-v2")
 EMBED_DEVICE = os.getenv("EMBED_DEVICE", "cpu")  # "cuda" only if GPU passthrough works
 
 # --- Paths (all env-var-overridable, with sensible defaults) ---
