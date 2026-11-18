@@ -22,7 +22,18 @@ limiter = Limiter(key_func=get_remote_address)
 app = FastAPI(title="Emotion Chatbot API")
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+
+# CORS: wildcard origins — fine for demos/portfolio. Restrict before real users.
+# NOTE: allow_credentials MUST be False when allow_origins=["*"], or browsers
+# silently drop the response. If you later need cookies/auth, set explicit
+# origins instead of "*".
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 db.init()
 
@@ -37,8 +48,6 @@ Cancellation: Subscriptions can be cancelled anytime from account settings."""
 @app.on_event("startup")
 async def seed_kb():
     """Seed FAQ only if the FAISS index doesn't already exist on disk."""
-    from pathlib import Path
-    from . import config
     index_exists = Path(config.FAISS_INDEX_PATH).exists()
     if not index_exists:
         try:

@@ -1,0 +1,28 @@
+app = "emotional-logical-chatbot"
+primary_region = "ams"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  LLM_MODEL = "openai/gpt-oss-120b"
+  LLM_BASE_URL = "https://api.groq.com/openai/v1"
+  EMBED_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+  DATA_PATH = "/app/data"
+  DB_PATH = "/app/data/interactions.db"
+  FAISS_INDEX_PATH = "/app/data/faiss.index"
+  FAISS_DOCUMENTS_PATH = "/app/data/faiss_documents.json"
+  HF_HOME = "/app/data/huggingface"
+  RATE_LIMIT = "30/minute"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  memory = "1024mb"
+  cpu_kind = "shared"
+  cpus = 1
