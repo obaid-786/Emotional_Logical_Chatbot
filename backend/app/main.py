@@ -27,8 +27,11 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], all
 db.init()
 
 FAQ = """Refund Policy: Refunds available within 30 days of purchase for unused products.
+
 Shipping: Standard shipping takes 3-5 business days. Express is 1-2 days.
+
 Support Hours: Team available Monday-Friday 9AM-6PM EST.
+
 Cancellation: Subscriptions can be cancelled anytime from account settings."""
 
 @app.on_event("startup")
