@@ -25,5 +25,8 @@ SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
 COPY app ./app
 RUN mkdir -p /app/data
 
+# Render uses port 10000 by default, but we keep 8000 as a fallback for local testing
 EXPOSE 8000
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+# The change is here: use ${PORT} if it exists, otherwise default to 8000
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
