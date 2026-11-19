@@ -26,3 +26,7 @@ primary_region = "ams"
   memory = "1024mb"
   cpu_kind = "shared"
   cpus = 1
+  
+  [mounts]
+  source = "data_volume"
+  destination = "/app/data"
