@@ -1,28 +1,34 @@
-app = "emotional-logical-chatbot"
-primary_region = "ams"
+# fly.toml app configuration file generated for emotional-logical-chatbot on 2026-11-19T06:04:43Z
+#
+# See https://docs.fly.io/reference/configuration for information about how to use this file.
+#
+
+app = 'emotional-logical-chatbot'
+primary_region = 'ams'
 
 [build]
-  dockerfile = "Dockerfile"
+  dockerfile = 'Dockerfile'
 
 [env]
-  LLM_MODEL = "openai/gpt-oss-120b"
-  LLM_BASE_URL = "https://api.groq.com/openai/v1"
-  EMBED_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
-  DATA_PATH = "/app/data"
-  DB_PATH = "/app/data/interactions.db"
-  FAISS_INDEX_PATH = "/app/data/faiss.index"
-  FAISS_DOCUMENTS_PATH = "/app/data/faiss_documents.json"
-  HF_HOME = "/app/data/huggingface"
-  RATE_LIMIT = "30/minute"
+  DATA_PATH = '/app/data'
+  DB_PATH = '/app/data/interactions.db'
+  EMBED_MODEL = 'sentence-transformers/all-MiniLM-L6-v2'
+  FAISS_DOCUMENTS_PATH = '/app/data/faiss_documents.json'
+  FAISS_INDEX_PATH = '/app/data/faiss.index'
+  HF_HOME = '/app/data/huggingface'
+  LLM_BASE_URL = 'https://api.groq.com/openai/v1'
+  LLM_MODEL = 'openai/gpt-oss-120b'
+  RATE_LIMIT = '30/minute'
 
 [http_service]
   internal_port = 8000
   force_https = true
-  auto_stop_machines = "stop"
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
 
 [[vm]]
-  memory = "1024mb"
-  cpu_kind = "shared"
+  memory = '1024mb'
+  cpu_kind = 'shared'
   cpus = 1
+  memory_mb = 1024
